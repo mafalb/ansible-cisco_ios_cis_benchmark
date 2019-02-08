@@ -1,0 +1,25 @@
+# vim: set ft=yaml ts=2:
+---
+
+- name: get running-config
+  ios_command:
+    commands:
+      - show running-config
+  register: _running_config
+
+- debug: var=_running_config
+  tags:
+    - never
+    - debug
+
+- name: 1.4.1 Set 'password' for 'enable secret' (Scored)
+  include_role:
+    name: "{{ role_path }}/1.4.1"
+
+- name: 1.4.2 Enable 'service password-encryption' (Scored)
+  include_role:
+    name: "{{ role_path }}/1.4.2"
+
+- name: 1.4.3 Set 'username secret for all local users (Scored)
+  include_role:
+    name: "{{ role_path }}/1.4.3"

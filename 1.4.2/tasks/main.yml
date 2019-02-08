@@ -1,0 +1,8 @@
+# vim: set ft=yaml ts=2:
+---
+- name: service password-encryption is enabled
+  ignore_errors: true
+  assert:
+    that:
+      - _running_config.stdout[0] is search("(^|\n)service password-encryption")
+...

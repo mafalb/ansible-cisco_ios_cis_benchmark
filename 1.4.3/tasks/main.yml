@@ -1,0 +1,14 @@
+# vim: set ft=yaml ts=2:
+---
+- name: at least one secure local user does exist
+  ignore_errors: true
+  assert:
+    that:
+      - _running_config.stdout[0] is search("(^|\n)username [\w]+ secret \w \$")
+
+- name: Set 'username secret' for all local users
+  ignore_errors: true
+  assert:
+    that:
+      - not _running_config.stdout[0] is search("(^|\n)username [\w]+ (?!secret )")
+...
